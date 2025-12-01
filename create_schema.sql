@@ -1,3 +1,4 @@
+-- Create Tables
 CREATE TABLE job_title (
     job_title_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     job_title VARCHAR(100) NOT NULL UNIQUE
@@ -33,7 +34,6 @@ CREATE TABLE person (
     city VARCHAR(500) NOT NULL
 );
 
-
 CREATE TABLE phone (
     phone_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     phone_number VARCHAR(500) NOT NULL UNIQUE,
@@ -59,13 +59,11 @@ CREATE TABLE planned_activity (
     CONSTRAINT fk_pa_activity FOREIGN KEY (teaching_activity_id) REFERENCES teaching_activity(teaching_activity_id)
 );
 
-
 CREATE TABLE department (
     department_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     department_name VARCHAR(100) NOT NULL UNIQUE,
     manager_id INT
 );
-
 
 CREATE TABLE employee (
     employee_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -81,7 +79,6 @@ CREATE TABLE employee (
 ALTER TABLE department 
     ADD CONSTRAINT fk_dept_manager FOREIGN KEY (manager_id) REFERENCES employee(employee_id);
 
--- 4. Remaining Tables (requiring Employee)
 CREATE TABLE employee_competence (
     employee_id INT NOT NULL,
     competence_id INT NOT NULL,
@@ -94,6 +91,7 @@ CREATE TABLE work_allocation (
     work_allocation_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     planned_activity_id INT NOT NULL,
     employee_id INT NOT NULL,
+    allocated_hours INT NOT NULL DEFAULT 0, -- Added column required for Task 2
     CONSTRAINT fk_wa_activity FOREIGN KEY (planned_activity_id) REFERENCES planned_activity(planned_activity_id),
     CONSTRAINT fk_wa_emp FOREIGN KEY (employee_id) REFERENCES employee(employee_id)
 );
