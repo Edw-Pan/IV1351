@@ -67,6 +67,12 @@ JOIN course_instance ci ON pa.course_instance_id = ci.course_instance_id
 JOIN course_layout cl ON ci.course_layout_id = cl.course_layout_id
 GROUP BY cl.course_code, ci.course_instance_id, cl.hp, ci.study_year, p.first_name, p.last_name, jt.job_title;
 
+-- ===================================================================================
+-- Fix for sem 4: Query 2 - Showing allocated hours for ONE particular course
+-- ===================================================================================
+SELECT * FROM View_Teacher_Allocation 
+WHERE course_code = 'IV1351' AND study_year = 2025; -- choose what course you want to see
+
 -- Query 3: Teacher Load per Period
 CREATE VIEW View_Teacher_Load AS
 SELECT 
@@ -92,6 +98,13 @@ JOIN teaching_activity ta ON pa.teaching_activity_id = ta.teaching_activity_id
 JOIN course_instance ci ON pa.course_instance_id = ci.course_instance_id
 JOIN course_layout cl ON ci.course_layout_id = cl.course_layout_id
 GROUP BY cl.course_code, ci.course_instance_id, cl.hp, ci.study_period, ci.study_year, p.first_name, p.last_name;
+
+-- ===================================================================================
+-- Fix for sem 4: Query 3 - Showing allocated hours for ONE particular teacher
+-- ===================================================================================
+SELECT * FROM View_Teacher_Load 
+WHERE teacher_name = 'Charlie Clark' AND study_year = 2025;  -- choose what teacher you want to see
+
 
 -- Query 4: Overloaded Teachers
 CREATE VIEW View_Overloaded_Teachers AS
